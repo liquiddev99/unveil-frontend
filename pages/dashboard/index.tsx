@@ -7,6 +7,7 @@ import { AiOutlinePlus, AiOutlineLoading3Quarters } from "react-icons/ai";
 
 import SideBar from "@/components/dashboard/SideBar";
 import NewPasswordModal from "@/components/modal/NewPasswordModal";
+import PasswordItem from "@/components/password/PasswordItem";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -40,20 +41,23 @@ export default function Dashboard() {
             <AiOutlineLoading3Quarters className="w-20 h-20 animate-spin text-slate-400" />
           </div>
         )}
+
+        {passwords && !passwords.length && (
+          <div className="flex justify-center items-center h-1/2">
+            <button
+              onClick={() => setNewPasswordModal(true)}
+              className="flex items-center text-xl border border-slate-700 hover:bg-slate-700 transition-colors rounded px-4 py-1.5"
+            >
+              <AiOutlinePlus className="w-6 h-6 mr-2 text-pink" />
+              New Password
+            </button>
+          </div>
+        )}
+
         <div className="mt-7 grid grid-cols-3 gap-4">
           {passwords &&
             passwords.length > 0 &&
-            passwords.map((password) => (
-              <div
-                className="bg-[#272E3C] p-4 rounded-lg cursor-pointer hover:bg-slate-700 transition-colors"
-                key={password.id}
-              >
-                <p>{password.name}</p>
-                <p>{password.username}</p>
-                <p>{password.note}</p>
-                <p>{password.created_at}</p>
-              </div>
-            ))}
+            passwords.map((password) => <PasswordItem password={password} />)}
         </div>
       </div>
 

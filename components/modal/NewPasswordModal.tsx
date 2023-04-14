@@ -119,7 +119,7 @@ export default function NewPasswordModal({ isOpen, closeModal }: Props) {
                         name="username"
                         value={inputs.username}
                         required
-                        placeholder="Username"
+                        placeholder="Email, Phone Number,..."
                         className="p-2 px-4 mb-3 w-full border border-slate-500 focus:border-pink transition-all duration-200 outline-none rounded-xl bg-[#171D28] text-slate-200"
                         onChange={handleChange}
                       />
@@ -136,7 +136,7 @@ export default function NewPasswordModal({ isOpen, closeModal }: Props) {
                         type="text"
                         name="website"
                         value={inputs.website}
-                        placeholder="Website"
+                        placeholder="https://example.com"
                         className="p-2 px-4 mb-3 w-full border border-slate-500 focus:border-pink transition-all duration-200 outline-none rounded-xl bg-[#171D28] text-slate-200"
                         onChange={handleChange}
                       />
