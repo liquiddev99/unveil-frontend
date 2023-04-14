@@ -9,7 +9,6 @@ interface Props {
 
 export default function PasswordItem({ password }: Props) {
   const [favicon, setFavicon] = useState(true);
-  const options = { year: "numeric", month: "numeric", day: "numeric" };
 
   return (
     <div
