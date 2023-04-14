@@ -31,6 +31,7 @@ export default function LoginModal({ isOpen, closeModal }: Props) {
   const handleSubmit = async (e: React.FormEvent) => {
     try {
       e.preventDefault();
+      setErrMsg("");
       setIsSubmitting(true);
       await axios.post("http://localhost:8080/users/login", inputs, {
         withCredentials: true,
@@ -52,7 +53,10 @@ export default function LoginModal({ isOpen, closeModal }: Props) {
   };
 
   useEffect(() => {
-    setErrMsg("");
+    if (isOpen) {
+      setInputs({ email: "", password: "" });
+      setErrMsg("");
+    }
   }, [isOpen]);
 
   return (

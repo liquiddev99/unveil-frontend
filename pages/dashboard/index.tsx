@@ -3,7 +3,7 @@ import { GetServerSideProps } from "next";
 import { useAuth } from "@/hooks/auth";
 import { usePasswords } from "@/hooks/password";
 import { useRouter } from "next/router";
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlinePlus, AiOutlineLoading3Quarters } from "react-icons/ai";
 
 import SideBar from "@/components/dashboard/SideBar";
 import NewPasswordModal from "@/components/modal/NewPasswordModal";
@@ -16,7 +16,7 @@ export default function Dashboard() {
   const { authenticated, validating, loading } = useAuth();
   if (!authenticated && !validating && !loading) router.push("/");
 
-  const { passwords } = usePasswords();
+  const { passwords, loading: loadingPasswords } = usePasswords();
 
   console.log("passwords", passwords);
 
@@ -35,11 +35,24 @@ export default function Dashboard() {
           </button>
         </div>
 
-        <div className="mt-4">
+        {loadingPasswords && (
+          <div className="h-2/3 flex items-center justify-center">
+            <AiOutlineLoading3Quarters className="w-20 h-20 animate-spin text-slate-400" />
+          </div>
+        )}
+        <div className="mt-7 grid grid-cols-3 gap-4">
           {passwords &&
-            passwords.length &&
+            passwords.length > 0 &&
             passwords.map((password) => (
-              <div key={password.id}>{password.name}</div>
+              <div
+                className="bg-[#272E3C] p-4 rounded-lg cursor-pointer hover:bg-slate-700 transition-colors"
+                key={password.id}
+              >
+                <p>{password.name}</p>
+                <p>{password.username}</p>
+                <p>{password.note}</p>
+                <p>{password.created_at}</p>
+              </div>
             ))}
         </div>
       </div>
