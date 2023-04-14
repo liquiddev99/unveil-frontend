@@ -8,18 +8,20 @@ import { AiOutlinePlus, AiOutlineLoading3Quarters } from "react-icons/ai";
 import SideBar from "@/components/dashboard/SideBar";
 import NewPasswordModal from "@/components/modal/NewPasswordModal";
 import PasswordItem from "@/components/password/PasswordItem";
+import DetailPasswordModal from "@/components/modal/DetailPasswordModal";
+import { PasswordItem as IPasswordItem } from "@/types/password";
 
 export default function Dashboard() {
   const router = useRouter();
 
   const [newPasswordModal, setNewPasswordModal] = useState(false);
+  const [detailPasswordModal, setDetailPasswordModal] = useState(false);
+  const [password, setPassword] = useState<IPasswordItem>();
 
   const { authenticated, validating, loading } = useAuth();
   if (!authenticated && !validating && !loading) router.push("/");
 
   const { passwords, loading: loadingPasswords } = usePasswords();
-
-  console.log("passwords", passwords);
 
   return (
     <div className="flex min-h-[60vh]">
@@ -57,13 +59,28 @@ export default function Dashboard() {
         <div className="mt-7 grid grid-cols-3 gap-4">
           {passwords &&
             passwords.length > 0 &&
-            passwords.map((password) => <PasswordItem password={password} />)}
+            passwords.map((password) => (
+              <PasswordItem
+                password={password}
+                openDetail={() => {
+                  setPassword(password);
+                  setDetailPasswordModal(true);
+                }}
+                key={password.id}
+              />
+            ))}
         </div>
       </div>
 
       <NewPasswordModal
         isOpen={newPasswordModal}
         closeModal={() => setNewPasswordModal(false)}
+      />
+
+      <DetailPasswordModal
+        isOpen={detailPasswordModal}
+        closeModal={() => setDetailPasswordModal(false)}
+        password={password}
       />
     </div>
   );

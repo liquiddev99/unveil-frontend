@@ -7,3 +7,10 @@ export interface PasswordItem {
   created_at: string;
   updated_at: string;
 }
+
+export interface DetailPassword {
+  name: string;
+  value: string;
+  note: string;
+  website: string;
+}
