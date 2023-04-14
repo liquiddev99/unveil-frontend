@@ -11,12 +11,15 @@ import { useSWRConfig } from "swr";
 export default function UserMenu() {
   const { mutate } = useSWRConfig();
 
+  const clearCache = () => mutate(() => true, undefined, { revalidate: false });
+
   const logout = async () => {
     await axios.post(
       "http://localhost:8080/users/logout",
       {},
       { withCredentials: true }
     );
+    clearCache();
     mutate("/api/auth");
   };
 
@@ -43,9 +46,8 @@ export default function UserMenu() {
               {({ active }) => (
                 <Link
                   href="/profile"
-                  className={`${
-                    active ? "bg-red-500" : ""
-                  } group flex w-full items-center rounded-md px-2 py-2`}
+                  className={`${active ? "bg-red-500" : ""
+                    } group flex w-full items-center rounded-md px-2 py-2`}
                 >
                   <BiUserCircle className="mr-2 h-6 w-6" />
                   My Profile
@@ -55,9 +57,8 @@ export default function UserMenu() {
             <Menu.Item>
               {({ active }) => (
                 <button
-                  className={`${
-                    active ? "bg-red-500" : ""
-                  } group flex w-full items-center rounded-md px-2 py-2`}
+                  className={`${active ? "bg-red-500" : ""
+                    } group flex w-full items-center rounded-md px-2 py-2`}
                 >
                   <IoFastFood className="mr-2 h-6 w-6" />
                   Favorite Recipes
@@ -70,9 +71,8 @@ export default function UserMenu() {
             <Menu.Item>
               {({ active }) => (
                 <button
-                  className={`${
-                    active ? "bg-red-500" : ""
-                  } group flex w-full items-center rounded-md px-2 py-2`}
+                  className={`${active ? "bg-red-500" : ""
+                    } group flex w-full items-center rounded-md px-2 py-2`}
                   onClick={logout}
                 >
                   <HiOutlineLogout className="h-6 w-6 mr-2" />
