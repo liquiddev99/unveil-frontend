@@ -18,6 +18,7 @@ module.exports = {
       },
       colors: {
         pink: "#ff00a0",
+        blur: "#989CAD",
         bg1: "#1A202D",
         bg2: "#171D28",
       },

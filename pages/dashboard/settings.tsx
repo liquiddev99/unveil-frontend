@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next";
 import { useAuth } from "@/hooks/auth";
 import { usePasswords } from "@/hooks/password";
 import { useRouter } from "next/router";
+import SideBar from "@/components/dashboard/SideBar";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -15,9 +16,9 @@ export default function Dashboard() {
   if (!authenticated && loading) return <div>Loading...</div>;
 
   return (
-    <div className="flex">
-      <div>Sidebar</div>
-      <div>Main</div>
+    <div className="flex min-h-[60vh]">
+      <SideBar />
+      <div>Account</div>
     </div>
   );
 }

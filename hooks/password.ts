@@ -1,7 +1,8 @@
+import { PasswordItem } from "@/types/password";
 import axios from "axios";
-import useSWR from "swr";
+import useSWR, { Fetcher } from "swr";
 
-const fetcher = () =>
+const fetcher: Fetcher<PasswordItem[], string> = () =>
   axios
     .get("http://localhost:8080/passwords/users", { withCredentials: true })
     .then((res) => res.data);
