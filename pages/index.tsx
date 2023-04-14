@@ -117,7 +117,7 @@ export default function Home() {
         <div className="flex items-center mt-32 gap-x-40 justify-between">
           <div className="mb-4">
             <p className="text-3xl font-medium mb-4">
-              Storing your password serurely, say goodbye to forgetting password
+              Storing your password serurely, no more forgetting password
             </p>
             <p className="text-[#989CAD]">
               With Unveil, you'll never have to worry about forgetting a
@@ -139,7 +139,7 @@ export default function Home() {
           <Image src={WhyUse3} alt="convenient" width={450} height={450} />
           <div className="mb-4 grow">
             <p className="text-3xl font-medium mb-4">
-              Hassle-free of remembering multiple passwords with the convenience
+              Hassle-free of managing multiple passwords with the convenience
             </p>
             <p className="text-[#989CAD]">
               With Unveil, managing your passwords is a breeze - our intuitive
