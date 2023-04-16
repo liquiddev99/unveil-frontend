@@ -3,7 +3,7 @@ import { Fragment, useState, useEffect } from "react";
 import Image from "next/image";
 import axios from "axios";
 import { useSWRConfig } from "swr";
-import { BiWorld } from "react-icons/bi";
+import { BiWorld, BiCopy, BiTimeFive } from "react-icons/bi";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 import { PasswordItem } from "@/types/password";
@@ -22,6 +22,7 @@ export default function DetailPasswordModal({
   const { mutate } = useSWRConfig();
   const [favicon, setFavicon] = useState(true);
   const [hidden, setHidden] = useState(true);
+  const [isNewForm, setIsNewForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [inputs, setInputs] = useState({
@@ -64,7 +65,7 @@ export default function DetailPasswordModal({
       );
       mutate("/api/passwords");
       setIsSubmitting(false);
-      // closeModal();
+      closeModal();
     } catch (err: any) {
       setIsSubmitting(false);
       if (err?.response?.data) {
@@ -98,8 +99,24 @@ export default function DetailPasswordModal({
       setFavicon(true);
       setErrMsg("");
       setHidden(true);
+      setIsNewForm(false);
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (!detailPassword || !password) return;
+    if (
+      value !== detailPassword.value ||
+      inputs.name !== password.name ||
+      inputs.note !== password.note ||
+      inputs.website !== password.website ||
+      inputs.username !== password.username
+    ) {
+      setIsNewForm(true);
+      return;
+    }
+    setIsNewForm(false);
+  }, [inputs, value]);
 
   return (
     <>
@@ -238,26 +255,45 @@ export default function DetailPasswordModal({
                               value={value}
                               onChange={handleChangeValue}
                               placeholder="Value"
-                              className="p-2 px-4 w-full border border-r-0 border-slate-500 focus:border-pink transition-all duration-200 outline-none rounded-l-lg bg-[#171D28] text-slate-200"
+                              className="p-2 px-4 w-full border border-slate-500 focus:border-pink transition-all duration-200 outline-none rounded-l-lg bg-[#171D28] text-slate-200"
                             />
                             {hidden ? (
                               <div
                                 onClick={() => setHidden(!hidden)}
-                                className="flex justify-center items-center px-2 border border-slate-500 hover:bg-slate-700 cursor-pointer rounded-r-lg"
+                                className="flex justify-center items-center px-2 border border-l-0 border-slate-500 hover:bg-slate-700 cursor-pointer"
                               >
                                 <AiFillEye className="h-7 w-7" />
                               </div>
                             ) : (
                               <div
                                 onClick={() => setHidden(!hidden)}
-                                className="flex justify-center items-center px-2 border border-slate-500 hover:bg-slate-700 cursor-pointer rounded-r-lg"
+                                className="flex justify-center items-center px-2 border border-l-0 border-slate-500 hover:bg-slate-700 cursor-pointer"
                               >
                                 <AiFillEyeInvisible className="h-7 w-7" />
                               </div>
                             )}
+                            <div
+                              onClick={() =>
+                                navigator.clipboard.writeText(value)
+                              }
+                              className="flex justify-center items-center px-2 border border-l-0 border-slate-500 hover:bg-slate-700 cursor-pointer rounded-r-lg"
+                            >
+                              <BiCopy className="h-6 w-6" />
+                            </div>
                           </div>
                         </div>
                       </div>
+                      {password?.created_at && (
+                        <p className="text-blur flex items-center mt-4">
+                          <BiTimeFive className="h-5 w-5 mr-1" />
+                          Created at:{" "}
+                          {new Intl.DateTimeFormat("vi-VN", {
+                            timeStyle: "medium",
+                            dateStyle: "short",
+                          }).format(new Date(password.created_at))}
+                        </p>
+                      )}
+
                       {errMsg && (
                         <div className="text-red-500 self-start mt-3">
                           {errMsg}
@@ -265,10 +301,11 @@ export default function DetailPasswordModal({
                       )}
                       <button
                         type="submit"
-                        className={`py-2 px-6 font-medium mt-5 bg-red-500 text-slate-200 rounded-xl self-start ${
-                          isSubmitting && "opacity-80"
+                        className={`py-2 px-6 font-medium mt-4 bg-red-500 text-slate-200 rounded-xl self-start transition-all ${
+                          (isSubmitting || !isNewForm) &&
+                          "opacity-50 cursor-not-allowed"
                         }`}
-                        disabled={isSubmitting}
+                        disabled={isSubmitting || !isNewForm}
                       >
                         {isSubmitting ? "Updating..." : "Update"}
                       </button>
