@@ -35,7 +35,6 @@ export default function PasswordItem({ password, openDetail }: Props) {
         <p>{password.name}</p>
       </div>
       <p className="truncate mb-1 text-slate-300">{password.username}</p>
-      <p>{password.note}</p>
       <p className="text-blur flex items-center">
         <BiTimeFive className="h-5 w-5 mr-1" />
         Created at:{" "}
