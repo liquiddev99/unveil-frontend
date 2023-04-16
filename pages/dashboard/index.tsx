@@ -59,16 +59,21 @@ export default function Dashboard() {
         <div className="mt-7 grid grid-cols-3 gap-4">
           {passwords &&
             passwords.length > 0 &&
-            passwords.map((password) => (
-              <PasswordItem
-                password={password}
-                openDetail={() => {
-                  setPassword(password);
-                  setDetailPasswordModal(true);
-                }}
-                key={password.id}
-              />
-            ))}
+            passwords
+              .sort((a, b) => {
+                if (a.created_at < b.created_at) return 1;
+                return -1;
+              })
+              .map((password) => (
+                <PasswordItem
+                  password={password}
+                  openDetail={() => {
+                    setPassword(password);
+                    setDetailPasswordModal(true);
+                  }}
+                  key={password.id}
+                />
+              ))}
         </div>
       </div>
 
