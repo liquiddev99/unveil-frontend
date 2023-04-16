@@ -26,9 +26,9 @@ export function usePasswords() {
   };
 }
 
-export function usePassword(name: string | undefined) {
+export function usePassword(id: string | undefined) {
   const { data, error, isLoading, isValidating } = useSWR(
-    name ? `/passwords/name/${name}` : null,
+    id ? `/passwords/${id}` : null,
     getPassword
   );
 

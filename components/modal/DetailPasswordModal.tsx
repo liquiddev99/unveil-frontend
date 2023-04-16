@@ -3,11 +3,13 @@ import { Fragment, useState, useEffect } from "react";
 import Image from "next/image";
 import axios from "axios";
 import { useSWRConfig } from "swr";
-import { BiWorld, BiCopy, BiTimeFive } from "react-icons/bi";
+import { BiTrash, BiWorld, BiCopy, BiTimeFive } from "react-icons/bi";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 import { PasswordItem } from "@/types/password";
 import { usePassword } from "@/hooks/password";
+import ConfirmDeleteModal from "./ConfirmDeleteModal";
+import { toast } from "react-toastify";
 
 interface Props {
   password: PasswordItem | undefined;
@@ -24,6 +26,7 @@ export default function DetailPasswordModal({
   const [hidden, setHidden] = useState(true);
   const [isNewForm, setIsNewForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [inputs, setInputs] = useState({
     name: "",
@@ -35,7 +38,7 @@ export default function DetailPasswordModal({
 
   const [value, setValue] = useState("");
 
-  const { password: detailPassword } = usePassword(password?.name);
+  const { password: detailPassword } = usePassword(password?.id);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
@@ -273,9 +276,14 @@ export default function DetailPasswordModal({
                               </div>
                             )}
                             <div
-                              onClick={() =>
-                                navigator.clipboard.writeText(value)
-                              }
+                              onClick={() => {
+                                navigator.clipboard.writeText(value);
+                                toast.info("Copied to clipboard", {
+                                  autoClose: 1000,
+                                  closeOnClick: true,
+                                  theme: "dark",
+                                });
+                              }}
                               className="flex justify-center items-center px-2 border border-l-0 border-slate-500 hover:bg-slate-700 cursor-pointer rounded-r-lg"
                             >
                               <BiCopy className="h-6 w-6" />
@@ -299,22 +307,36 @@ export default function DetailPasswordModal({
                           {errMsg}
                         </div>
                       )}
-                      <button
-                        type="submit"
-                        className={`py-2 px-6 font-medium mt-4 bg-red-500 text-slate-200 rounded-xl self-start transition-all ${
-                          (isSubmitting || !isNewForm) &&
-                          "opacity-50 cursor-not-allowed"
-                        }`}
-                        disabled={isSubmitting || !isNewForm}
-                      >
-                        {isSubmitting ? "Updating..." : "Update"}
-                      </button>
+                      <div className="flex justify-between items-center mt-4">
+                        <button
+                          type="submit"
+                          className={`py-2 px-6 font-medium bg-red-500 text-slate-200 rounded-xl self-start transition-all ${
+                            (isSubmitting || !isNewForm) &&
+                            "opacity-50 cursor-not-allowed"
+                          }`}
+                          disabled={isSubmitting || !isNewForm}
+                        >
+                          {isSubmitting ? "Updating..." : "Update"}
+                        </button>
+                        <div
+                          onClick={() => setDeleteModal(true)}
+                          className="p-2 hover:bg-slate-700 rounded-lg cursor-pointer"
+                        >
+                          <BiTrash className="w-6 h-6 text-red-400" />
+                        </div>
+                      </div>
                     </form>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
           </div>
+          <ConfirmDeleteModal
+            isOpen={deleteModal}
+            closeModal={() => setDeleteModal(false)}
+            closeDetailModal={closeModal}
+            name={password?.name}
+          />
         </Dialog>
       </Transition>
     </>
