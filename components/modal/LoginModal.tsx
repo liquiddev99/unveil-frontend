@@ -43,8 +43,8 @@ export default function LoginModal({ isOpen, closeModal }: Props) {
       mutate("/api/auth");
     } catch (err: any) {
       setIsSubmitting(false);
-      if (err?.response?.data?.msg) {
-        setErrMsg(err.response.data.msg);
+      if (err?.response?.data) {
+        setErrMsg(err.response.data);
       } else {
         setErrMsg("An error occured, please try again");
       }

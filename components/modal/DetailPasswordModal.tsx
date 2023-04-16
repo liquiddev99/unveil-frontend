@@ -19,7 +19,6 @@ export default function DetailPasswordModal({
   closeModal,
   password,
 }: Props) {
-  console.log(password);
   const { mutate } = useSWRConfig();
   const [favicon, setFavicon] = useState(true);
   const [hidden, setHidden] = useState(true);
@@ -45,21 +44,31 @@ export default function DetailPasswordModal({
     });
   };
 
+  const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     try {
       setErrMsg("");
       e.preventDefault();
       setIsSubmitting(true);
-      await axios.post("http://localhost:8080/passwords/create", inputs, {
-        withCredentials: true,
-      });
+      const inputsForm: any = inputs;
+      if (value !== detailPassword?.value) inputsForm["value"] = value;
+      await axios.put(
+        `http://localhost:8080/passwords/name/${password?.name}`,
+        inputs,
+        {
+          withCredentials: true,
+        }
+      );
       mutate("/api/passwords");
       setIsSubmitting(false);
-      closeModal();
+      // closeModal();
     } catch (err: any) {
       setIsSubmitting(false);
-      if (err?.response?.data?.msg) {
-        setErrMsg(err.response.data.msg);
+      if (err?.response?.data) {
+        setErrMsg(err.response.data);
       } else {
         setErrMsg("An error occured, please try again");
       }
@@ -88,6 +97,7 @@ export default function DetailPasswordModal({
     if (isOpen) {
       setFavicon(true);
       setErrMsg("");
+      setHidden(true);
     }
   }, [isOpen]);
 
@@ -226,6 +236,7 @@ export default function DetailPasswordModal({
                               type={`${hidden ? "password" : "text"}`}
                               name="value"
                               value={value}
+                              onChange={handleChangeValue}
                               placeholder="Value"
                               className="p-2 px-4 w-full border border-r-0 border-slate-500 focus:border-pink transition-all duration-200 outline-none rounded-l-lg bg-[#171D28] text-slate-200"
                             />
@@ -259,7 +270,7 @@ export default function DetailPasswordModal({
                         }`}
                         disabled={isSubmitting}
                       >
-                        {isSubmitting ? "Creating..." : "Create"}
+                        {isSubmitting ? "Updating..." : "Update"}
                       </button>
                     </form>
                   </div>
