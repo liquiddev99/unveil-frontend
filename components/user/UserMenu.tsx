@@ -14,11 +14,11 @@ export default function UserMenu() {
   const clearCache = () => mutate(() => true, undefined, { revalidate: false });
 
   const logout = async () => {
-    await axios.post(
-      "http://localhost:8080/users/logout",
-      {},
-      { withCredentials: true }
-    );
+    let apiUrl = process.env.NEXT_PUBLIC_API_URL_DEV;
+    if (process.env.NODE_ENV === "production") {
+      apiUrl = process.env.NEXT_PUBLIC_API_URL_PROD;
+    }
+    await axios.post(`${apiUrl}/users/logout`, {}, { withCredentials: true });
     clearCache();
     mutate("/api/auth");
   };
