@@ -25,7 +25,11 @@ export default function ConfirmDeleteModal({
       setErrMsg("");
       e.preventDefault();
       setIsSubmitting(true);
-      await axios.delete(`http://localhost:8080/passwords/delete/${name}`, {
+      let apiUrl = process.env.NEXT_PUBLIC_API_URL_DEV;
+      if (process.env.NODE_ENV === "production") {
+        apiUrl = process.env.NEXT_PUBLIC_API_URL_PROD;
+      }
+      await axios.delete(`${apiUrl}/passwords/delete/${name}`, {
         withCredentials: true,
       });
       mutate("/api/passwords");

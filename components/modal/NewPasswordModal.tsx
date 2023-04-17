@@ -34,7 +34,11 @@ export default function NewPasswordModal({ isOpen, closeModal }: Props) {
       setErrMsg("");
       e.preventDefault();
       setIsSubmitting(true);
-      await axios.post("http://localhost:8080/passwords/create", inputs, {
+      let apiUrl = process.env.NEXT_PUBLIC_API_URL_DEV;
+      if (process.env.NODE_ENV === "production") {
+        apiUrl = process.env.NEXT_PUBLIC_API_URL_PROD;
+      }
+      await axios.post(`${apiUrl}/passwords/create`, inputs, {
         withCredentials: true,
       });
       mutate("/api/passwords");

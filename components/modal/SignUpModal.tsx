@@ -34,7 +34,12 @@ export default function SignUpModal({ isOpen, closeModal }: Props) {
       e.preventDefault();
       setErrMsg("");
       setIsSubmitting(true);
-      await axios.post("http://localhost:8080/users/signup", inputs, {
+
+      let apiUrl = process.env.NEXT_PUBLIC_API_URL_DEV;
+      if (process.env.NODE_ENV === "production") {
+        apiUrl = process.env.NEXT_PUBLIC_API_URL_PROD;
+      }
+      await axios.post(`${apiUrl}/users/signup`, inputs, {
         withCredentials: true,
       });
       setIsSubmitting(false);

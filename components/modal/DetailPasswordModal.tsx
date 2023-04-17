@@ -59,13 +59,13 @@ export default function DetailPasswordModal({
       setIsSubmitting(true);
       const inputsForm: any = inputs;
       if (value !== detailPassword?.value) inputsForm["value"] = value;
-      await axios.put(
-        `http://localhost:8080/passwords/name/${password?.name}`,
-        inputs,
-        {
-          withCredentials: true,
-        }
-      );
+      let apiUrl = process.env.NEXT_PUBLIC_API_URL_DEV;
+      if (process.env.NODE_ENV === "production") {
+        apiUrl = process.env.NEXT_PUBLIC_API_URL_PROD;
+      }
+      await axios.put(`${apiUrl}/passwords/name/${password?.name}`, inputs, {
+        withCredentials: true,
+      });
       mutate("/api/passwords");
       setIsSubmitting(false);
       closeModal();
