@@ -17,7 +17,7 @@ export default function Home() {
   const [signUpModal, setSignUpModal] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
 
-  const { authenticated } = useAuth();
+  const { authenticated, loading } = useAuth();
 
   return (
     <main className="">
@@ -48,20 +48,26 @@ export default function Home() {
           </h2>
 
           <div className="flex items-center mt-6">
-            {authenticated ? (
-              <Link
-                href="/dashboard"
-                className="bg-gradient-to-r from-pink to-purple font-semibold py-4 px-8 text-lg rounded-full flex items-end leading-none transition-all duration-150 hover:shadow-neon hover:shadow-pink hover:scale-105 mr-5"
-              >
-                Dashboard
-              </Link>
+            {!loading ? (
+              <>
+                {authenticated ? (
+                  <Link
+                    href="/dashboard"
+                    className="bg-gradient-to-r from-pink to-purple font-semibold py-4 px-8 text-lg rounded-full flex items-end leading-none transition-all duration-150 hover:shadow-neon hover:shadow-pink hover:scale-105 mr-5"
+                  >
+                    Dashboard
+                  </Link>
+                ) : (
+                  <button
+                    onClick={() => setSignUpModal(true)}
+                    className="bg-gradient-to-r from-pink to-purple font-semibold py-4 px-8 text-lg rounded-full flex items-end leading-none transition-all duration-150 hover:shadow-neon hover:shadow-pink hover:scale-105 mr-5"
+                  >
+                    Getting Started
+                  </button>
+                )}
+              </>
             ) : (
-              <button
-                onClick={() => setSignUpModal(true)}
-                className="bg-gradient-to-r from-pink to-purple font-semibold py-4 px-8 text-lg rounded-full flex items-end leading-none transition-all duration-150 hover:shadow-neon hover:shadow-pink hover:scale-105 mr-5"
-              >
-                Getting Started
-              </button>
+              <div className="w-48"></div>
             )}
 
             <button className="drop-shadow-md flex items-center text-lg leading-none bg-[#272e3c] hover:bg-gradient-to-r hover:from-pink hover:to-purple hover:shadow-neon hover:shadow-pink transition-all duration-150 hover:text-slate-200 hover:scale-105 text-slate-400 font-semibold py-4 px-8 rounded-full">

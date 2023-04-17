@@ -53,7 +53,7 @@ export default function Header() {
           >
             Community
           </Link>
-          {!loading && (
+          {!loading ? (
             <>
               {authenticated ? (
                 <>
@@ -82,6 +82,8 @@ export default function Header() {
                 </>
               )}
             </>
+          ) : (
+            <div className="w-44"></div>
           )}
         </div>
       </div>
