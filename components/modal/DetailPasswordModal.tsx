@@ -67,6 +67,7 @@ export default function DetailPasswordModal({
         withCredentials: true,
       });
       mutate("/api/passwords");
+      mutate(`/passwords/${password?.id}`);
       setIsSubmitting(false);
       closeModal();
     } catch (err: any) {
