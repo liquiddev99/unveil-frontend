@@ -2,14 +2,19 @@ import { DetailPassword, PasswordItem } from "@/types/password";
 import axios from "axios";
 import useSWR, { Fetcher } from "swr";
 
+let apiUrl = process.env.NEXT_PUBLIC_API_URL_DEV;
+if (process.env.NODE_ENV === "production") {
+  apiUrl = process.env.NEXT_PUBLIC_API_URL_PROD;
+}
+
 const fetcher: Fetcher<PasswordItem[], string> = () =>
   axios
-    .get("http://localhost:8080/passwords/users", { withCredentials: true })
+    .get(`${apiUrl}/passwords/users`, { withCredentials: true })
     .then((res) => res.data);
 
 const getPassword: Fetcher<DetailPassword, string> = (url: string) =>
   axios
-    .get(`http://localhost:8080${url}`, { withCredentials: true })
+    .get(`${apiUrl}${url}`, { withCredentials: true })
     .then((res) => res.data);
 
 export function usePasswords() {
