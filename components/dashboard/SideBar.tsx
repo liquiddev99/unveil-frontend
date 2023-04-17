@@ -18,7 +18,7 @@ export default function SideBar() {
       <div className="pl-3 flex items-center mb-6">
         <FaUserCircle className="w-7 h-7 mr-4" />
         <span className="text-xl truncate max-w-[150px]">
-          {user && user.username}
+          {user && user.name}
         </span>
       </div>
       <Link

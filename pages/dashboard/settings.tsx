@@ -15,7 +15,7 @@ export default function Dashboard() {
   const [isNewForm, setIsNewForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [inputs, setInputs] = useState({
-    username: "",
+    name: "",
     email: "",
   });
   const { authenticated, validating, loading, user } = useAuth();
@@ -70,7 +70,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!user) return;
-    if (inputs.username !== user.username || inputs.email !== user.email) {
+    if (inputs.name !== user.name || inputs.email !== user.email) {
       setIsNewForm(true);
       return;
     }
@@ -80,7 +80,7 @@ export default function Dashboard() {
   useEffect(() => {
     if (!user) return;
     setInputs({
-      username: user.username,
+      name: user.name,
       email: user.email,
     });
   }, [user]);
@@ -116,10 +116,10 @@ export default function Dashboard() {
                   Name
                 </label>
                 <input
-                  id="username"
+                  id="name"
                   type="text"
-                  name="username"
-                  value={inputs.username}
+                  name="name"
+                  value={inputs.name}
                   required
                   placeholder="Name"
                   className="p-2 px-4 w-full border border-slate-500 focus:border-pink transition-all duration-200 outline-none rounded-lg bg-[#171D28] text-slate-200"
