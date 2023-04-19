@@ -24,7 +24,7 @@ export default function Dashboard() {
   const { passwords, loading: loadingPasswords } = usePasswords();
 
   return (
-    <div className="flex min-h-[60vh]">
+    <div className="flex min-h-[60vh] layout">
       <SideBar />
       <div className="grow">
         <div className="flex justify-between items-center">

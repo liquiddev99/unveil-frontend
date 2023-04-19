@@ -14,9 +14,7 @@ interface Props {
 
 export default function Layout({ children }: Props) {
   return (
-    <div
-      className={`max-w-screen-xl mx-auto ${poppins.className} text-slate-200 w-5/6`}
-    >
+    <div className={`${poppins.className} text-slate-200`}>
       <Header />
       {children}
       <Footer />

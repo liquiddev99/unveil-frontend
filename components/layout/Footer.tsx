@@ -11,7 +11,7 @@ import {
 
 export default function Footer() {
   return (
-    <div className="flex justify-between mt-32 pb-20">
+    <div className="flex justify-between mt-32 pb-20 layout">
       <div className="w-1/3">
         <div className="flex items-center">
           <Image src={Logo} alt="Logo" width={60} height={60} />

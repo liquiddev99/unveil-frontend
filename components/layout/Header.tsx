@@ -15,7 +15,7 @@ export default function Header() {
   const { authenticated, loading } = useAuth();
 
   return (
-    <div className="py-8">
+    <div className="py-8 layout">
       <div className="flex justify-between items-center">
         <Link href="/">
           <div className="flex items-center">
@@ -39,7 +39,7 @@ export default function Header() {
             href="/install"
             className="mr-7 font-medium hover:text-pink transition-colors duration-100"
           >
-            Installation
+            Install CLI
           </Link>
           <Link
             href="/about"

@@ -7,6 +7,8 @@ import HeroImage from "../public/heroimage.svg";
 import WhyUse1 from "../public/whyuse1.svg";
 import WhyUse2 from "../public/whyuse2.svg";
 import WhyUse3 from "../public/whyuse3.svg";
+import WhyUse4 from "../public/whyuse4.png";
+import WhyUse5 from "../public/terminal.png";
 
 import SignUpModal from "@/components/modal/SignUpModal";
 import LoginModal from "@/components/modal/LoginModal";
@@ -21,7 +23,7 @@ export default function Home() {
 
   return (
     <main className="">
-      <div className="flex justify-between">
+      <div className="flex justify-between layout">
         <div className="mt-[5.5rem]">
           <h1 className="text-6xl font-semibold leading-[1.1]">
             The ultimate{" "}
@@ -102,7 +104,7 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="mt-20">
+      <div className="py-20 layout">
         <div className="flex items-center mt-32 gap-x-44 justify-between">
           <Image src={WhyUse2} alt="Finger Print" width={450} height={450} />
           <div className="mb-4">
@@ -137,8 +139,8 @@ export default function Home() {
           <Image
             src={WhyUse1}
             alt="Generate Password"
-            width={450}
-            height={450}
+            width={550}
+            height={550}
           />
         </div>
         <div className="flex items-center mt-32 gap-x-44 justify-between">
@@ -154,6 +156,51 @@ export default function Home() {
               place, help you save your time and effort, allowing you to
               effortlessly log into your accounts with just one click
             </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-[#171D28] py-24">
+        <div className="layout">
+          <div className="flex items-center gap-x-24 justify-between mb-36">
+            <div className="mb-4 grow">
+              <p className="text-3xl font-medium mb-4">
+                Effortlessly manage your passwords with our app's UI/UX.
+              </p>
+              <p className="text-[#989CAD]">
+                With its intuitive and user-friendly interface, Unveil is
+                designed to make password management as seamless and stress-free
+                as possible, we've crafted every aspect of the interface to
+                ensure accessibility and ease of use.
+              </p>
+            </div>
+            <Image
+              src={WhyUse4}
+              alt="Dashboard"
+              width={650}
+              height={650}
+              className="shadow-2xl"
+            />
+          </div>
+          <div className="flex items-center gap-x-24 justify-between">
+            <Image
+              src={WhyUse5}
+              alt="Dashboard"
+              width={630}
+              height={630}
+              className="shadow-2xl"
+            />
+            <div className="mb-4 grow">
+              <p className="text-3xl font-medium mb-4">
+                Seamlessly integrate password management with our CLI feature.
+              </p>
+              <p className="text-[#989CAD]">
+                For power users who prefer the command line interface, Unveil
+                offers a robust CLI feature that enables you to easily manage
+                your passwords without ever leaving the terminal, making
+                password management faster and more efficient.
+              </p>
+            </div>
           </div>
         </div>
       </div>

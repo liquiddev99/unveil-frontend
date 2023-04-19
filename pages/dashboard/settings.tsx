@@ -91,7 +91,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="flex min-h-[60vh]">
+    <div className="flex min-h-[60vh] layout">
       <SideBar />
       <div className="grow">
         <div className="flex justify-between items-center">
