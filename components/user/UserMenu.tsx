@@ -45,7 +45,7 @@ export default function UserMenu() {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  href="/profile"
+                  href="/dashboard/settings"
                   className={`${
                     active ? "bg-red-500" : ""
                   } group flex w-full items-center rounded-md px-2 py-2`}
@@ -53,18 +53,6 @@ export default function UserMenu() {
                   <BiUserCircle className="mr-2 h-6 w-6" />
                   My Profile
                 </Link>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  className={`${
-                    active ? "bg-red-500" : ""
-                  } group flex w-full items-center rounded-md px-2 py-2`}
-                >
-                  <IoFastFood className="mr-2 h-6 w-6" />
-                  Favorite Recipes
-                </button>
               )}
             </Menu.Item>
           </div>

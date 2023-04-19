@@ -36,19 +36,19 @@ export default function Header() {
             Home
           </Link>
           <Link
-            href="/install"
+            href="#"
             className="mr-7 font-medium hover:text-pink transition-colors duration-100"
           >
             Install CLI
           </Link>
           <Link
-            href="/about"
+            href="#"
             className="mr-7 font-medium hover:text-pink transition-colors duration-100"
           >
             About Us
           </Link>
           <Link
-            href="/community"
+            href="#"
             className="mr-7 font-medium hover:text-pink transition-colors duration-100"
           >
             Community
